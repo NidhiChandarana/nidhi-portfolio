@@ -35,6 +35,16 @@ const KPI_CHIPS = [
   { label: "GPA", value: "3.6/4.0" },
 ];
 
+type Project = {
+  title: string;
+  what: string;
+  how: string;
+  impact: string;
+  tags: string[];
+  kpiData: { name: string; value: number }[];
+  link: string;
+};
+
 const PROJECTS = [
   {
     title: "SocialSync — Real-Time Social Media Pipeline",
@@ -177,7 +187,7 @@ export default function Portfolio() {
           <div className="flex flex-col gap-6">
             <h1 className="text-4xl md:text-5xl font-bold leading-tight">{PROFILE.tagline}</h1>
             <p className="text-[#9FB2C7] leading-relaxed">
-              I’m {PROFILE.name} — a {PROFILE.title} focused on building reliable, scalable
+              I&apos;m {PROFILE.name} — a {PROFILE.title} focused on building reliable, scalable
               data systems and turning messy datasets into crisp insights.
             </p>
             <div className="flex flex-wrap gap-3">
@@ -338,7 +348,7 @@ function SummaryRow({ k, v }: { k: string; v: string }) {
   );
 }
 
-function ProjectCard({ p }: { p: any }) {
+function ProjectCard({ p }: { p: Project }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 12 }}
