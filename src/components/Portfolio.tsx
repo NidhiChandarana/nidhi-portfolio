@@ -403,7 +403,7 @@ function SQLConsole() {
         <span className="ml-2">psql — contacts</span>
       </div>
       <div className="p-4 font-mono text-sm">
-        <div className="text-[#9FB2C7]">SELECT * FROM contacts WHERE name = 'Nidhi Chandarana';</div>
+        <div className="text-[#9FB2C7]">SELECT * FROM contacts WHERE name =&apos;Nidhi Chandarana&apos;;</div>
         <div className="mt-3 overflow-auto">
           <table className="w-full text-left text-sm">
             <thead>
