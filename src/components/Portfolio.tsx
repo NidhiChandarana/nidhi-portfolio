@@ -100,7 +100,7 @@ const SKILLS_RADAR = [
 ];
 
 const SKILL_TAGS = [
-  "Python", "SQL", "C++", "Pandas", "NumPy", "TimescaleDB", "Postgres",
+  "Python", "SQL", "Pandas", "NumPy", "TimescaleDB", "Postgres",
   "Airflow/Faktory", "Looker", "scikit-learn", "VADER", "APIs", "GCP", "Azure",
 ];
 
