@@ -10,6 +10,7 @@ import {
   Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis,
   BarChart, Bar, XAxis, YAxis, Tooltip as ReTooltip, ResponsiveContainer
 } from "recharts";
+import Link from "next/link";
 
 /* ---------- helpers ---------- */
 function scrollToId(id: string) {
@@ -240,10 +241,8 @@ export default function Portfolio() {
               <a href={`mailto:${PROFILE.email}`} className="inline-flex items-center gap-2 rounded-2xl px-4 py-2 bg-[#10161D] hover:bg-[#131A22] transition border border-white/10">
                 <Mail className="h-4 w-4" /> Email
               </a>
-              <a href="/case-studies" className="inline-flex items-center gap-2 rounded-2xl px-4 py-2 bg-[#10161D] hover:bg-[#131A22] transition border border-white/10"
-            >
-              Case Studies
-            </a>
+              <Link href="/case-studies" className="inline-flex items-center gap-2 rounded-2xl px-4 py-2 bg-[#10161D] hover:bg-[#131A22] transition border border-white/10">
+              Case Studies</Link>
             </div>
           </div>
 
