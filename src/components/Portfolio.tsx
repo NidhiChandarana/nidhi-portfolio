@@ -25,7 +25,7 @@ const PROFILE = {
   location: "New York, USA",
   email: "nidhichandarana03@gmail.com",
   github: "https://github.com/nidhichandarana",
-  linkedin: "https://www.linkedin.com/in/nidhichandarana",
+  linkedin: "https://www.linkedin.com/in/nidhi-chandarana/",
   resumeUrl: "/Nidhi Chandarana.pdf",
 };
 
@@ -45,7 +45,7 @@ type Project = {
   link: string;
 };
 
-const PROJECTS = [
+const PROJECTS: Project[] = [
   {
     title: "SocialSync — Real-Time Social Media Pipeline",
     what: "Tracked online discourse on sensitive topics in real time.",
@@ -110,6 +110,28 @@ const NODES = [
   { key: "load", label: "Load", icon: Server, target: "section-load" },
   { key: "query", label: "Query", icon: MousePointerClick, target: "section-query" },
 ];
+
+/* ---------- Intro: Skills Snapshot (NEW) ---------- */
+const SKILLS_SNAPSHOT = [
+  { name: "Python & Pipelines", value: 95, blurb: "ETL, producers, queues (Faktory), monitoring" },
+  { name: "SQL & Databases",  value: 92, blurb: "Postgres/TimescaleDB, complex queries, modeling" },
+  { name: "Cloud (GCP/Azure)", value: 85, blurb: "Deployments, storage, networking basics, Docker" },
+  { name: "ETL & Analytics",  value: 90, blurb: "Cleaning, modeling, dashboards, stakeholder insights" },
+];
+
+function SkillsTooltip({ active, payload }: any) {
+  if (active && payload && payload.length) {
+    const p = payload[0].payload as { name: string; value: number; blurb: string };
+    return (
+      <div className="rounded-xl border border-white/10 bg-[#0B0F14] px-3 py-2 text-xs">
+        <div className="font-medium">{p.name}</div>
+        <div className="text-[#9FB2C7] mt-1">{p.blurb}</div>
+        <div className="text-teal-200 mt-1">Strength: {p.value}/100</div>
+      </div>
+    );
+  }
+  return null;
+}
 
 /* ---------- particles ---------- */
 const Packet = ({ x, y }: { x: number; y: number }) => (
@@ -224,14 +246,39 @@ export default function Portfolio() {
                 <SummaryRow k="Location" v={PROFILE.location} />
                 <SummaryRow k="Focus" v="ETL, Analytics, Cloud" />
               </div>
-              <div className="mt-6 h-36">
+
+              {/* Skills Snapshot (replaces old dummy chart) */}
+              <div className="mt-6 h-44">
                 <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={[{ name: "Q1", v: 10 }, { name: "Q2", v: 40 }, { name: "Q3", v: 65 }, { name: "Q4", v: 80 }]}>
-                    <XAxis dataKey="name" hide /><YAxis hide /><ReTooltip />
-                    <Bar dataKey="v" radius={[8, 8, 0, 0]} />
+                  <BarChart data={SKILLS_SNAPSHOT} barCategoryGap={24}>
+                    <XAxis
+                      dataKey="name"
+                      stroke="#9FB2C7"
+                      fontSize={11}
+                      interval={0}
+                      tickMargin={10}
+                    />
+                    <YAxis stroke="#9FB2C7" fontSize={11} domain={[0, 100]} />
+                    <ReTooltip content={<SkillsTooltip />} />
+                    <Bar dataKey="value" radius={[8, 8, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
+
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {SKILLS_SNAPSHOT.map(s => (
+                    <span key={s.name} className="text-xs rounded-full border border-white/10 bg-[#0B0F14] px-2.5 py-1">
+                      {s.name}
+                    </span>
+                  ))}
+                  <button
+                    onClick={() => scrollToId('section-load')}
+                    className="text-xs text-teal-300 hover:underline ml-auto"
+                  >
+                    View full skills →
+                  </button>
+                </div>
               </div>
+              {/* /Skills Snapshot */}
             </div>
           </div>
         </div>
@@ -282,7 +329,7 @@ export default function Portfolio() {
       </section>
 
       <footer className="mx-auto max-w-6xl px-6 py-10 text-center text-sm text-[#9FB2C7] border-t border-white/5">
-        © {new Date().getFullYear()} {PROFILE.name}. Built with React, Tailwind, Framer Motion & Recharts.
+        {"Looking forward to connect!"/* © {new Date().getFullYear()} {PROFILE.name}. */}
       </footer>
 
       {/* particle layer */}
@@ -403,7 +450,7 @@ function SQLConsole() {
         <span className="ml-2">psql — contacts</span>
       </div>
       <div className="p-4 font-mono text-sm">
-        <div className="text-[#9FB2C7]">SELECT * FROM contacts WHERE name =&apos;Nidhi Chandarana&apos;;</div>
+        <div className="text-[#9FB2C7]">SELECT * FROM contacts WHERE name = &apos;Nidhi Chandarana&apos;;</div>
         <div className="mt-3 overflow-auto">
           <table className="w-full text-left text-sm">
             <thead>
@@ -433,11 +480,7 @@ function SQLConsole() {
   );
 }
 
-/* 
-  Contact form here is the simple UI version.
-  If you already wired the /api/contact Resend route earlier,
-  you can swap back to the “fetch('/api/contact')” version we added.
-*/
+/* Contact form uses your /api/contact endpoint */
 function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -499,4 +542,3 @@ function ContactForm() {
     </div>
   );
 }
-
