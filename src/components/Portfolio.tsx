@@ -119,9 +119,16 @@ const SKILLS_SNAPSHOT = [
   { name: "ETL & Analytics",  value: 90, blurb: "Cleaning, modeling, dashboards, stakeholder insights" },
 ];
 
-function SkillsTooltip({ active, payload }: any) {
+type SkillsPoint = { name: string; value: number; blurb: string };
+type SkillsTooltipProps = {
+  active?: boolean;
+  payload?: { payload: SkillsPoint }[];
+};
+
+function SkillsTooltip({ active, payload }: SkillsTooltipProps) {
   if (active && payload && payload.length) {
-    const p = payload[0].payload as { name: string; value: number; blurb: string };
+    const p = payload[0]?.payload;
+    if (!p) return null;
     return (
       <div className="rounded-xl border border-white/10 bg-[#0B0F14] px-3 py-2 text-xs">
         <div className="font-medium">{p.name}</div>
